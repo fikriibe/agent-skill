@@ -5,6 +5,7 @@ SKILLS_SRC="$(cd "$(dirname "$0")/skills" && pwd)"
 SKILLS_DEST="$HOME/.claude/skills"
 
 echo "Installing skills to $SKILLS_DEST..."
+rm -rf "$SKILLS_DEST/spec-driven-development"
 mkdir -p "$SKILLS_DEST"
 
 for skill_dir in "$SKILLS_SRC"/*/; do

@@ -18,11 +18,12 @@ Orchestrator untuk design phase. Memastikan visual intent diproses secara beruru
 ```
 Cek kondisi sebelum memulai:
 
-needs_design_phase = true?  → lanjut ke design flow di bawah
-                    false?  → skip, lanjut ke /context-engineering
+needs_design_phase = true?  → cek DESIGN.md
+                    false?  → skip design phase, lanjut ke /plan
 
 Kondisi SKIP (tidak perlu design phase):
 - task_type: bug-fix | refactor | backend-only
+- DESIGN.md sudah ada di project root atau docs/
 - has_existing_design_system: true
 - jumlah screens baru < 3
 ```
@@ -89,11 +90,11 @@ Setelah design pipeline selesai:
 ```
 docs/DESIGN.md              ← design tokens (color, spacing, typography)
 src/components/[generated]/ ← React components dari Stitch
-```
 
-Kemudian lanjut ke `/context-engineering` dengan instruksi:
+Nanti lanjut ke `/plan` dan `/feature-team`.
 - Load `DESIGN.md` sebagai **persistent reference** (bukan inline)
 - Load generated components **on-demand** per task, bukan semua sekaligus
+```
 
 ---
 
@@ -130,5 +131,5 @@ Kemudian lanjut ke `/context-engineering` dengan instruksi:
 
 - [ ] DESIGN.md tersimpan di repo dengan color tokens, spacing, typography
 - [ ] React components dari Stitch tidak ada placeholder content
-- [ ] DESIGN.md di-load sebagai reference di context-engineering (bukan inline)
-- [ ] Siap dilanjutkan ke /context-engineering → /planning-and-task-breakdown
+- [ ] DESIGN.md di-load sebagai reference in context (bukan inline)
+- [ ] Siap dilanjutkan ke /plan -> /feature-team

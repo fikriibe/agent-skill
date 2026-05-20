@@ -1,12 +1,5 @@
-# Agent Skills Repo
+## Config
 
-Repo ini berisi koleksi development skills untuk Claude Code. Lihat README.md untuk daftar skills dan cara install.
-
----
-
-## Design Pipeline Config
-
-Config ini dibaca oleh `/design-pipeline` untuk menentukan behavior design phase.
 
 ```yaml
 design_pipeline:
@@ -29,4 +22,19 @@ skills_priority:
   motion_authority: animate-skill
   taste_authority: taste-skill/stitch-skill
   output_gate: output-skill
+
+spec:
+  save_path: docs/spec.md
+  auto_plan: true
+
+plan:
+  save_path: teams/{team-name}/plan.md
+
+feature_team:
+  default_roles: [fe, be]
+  testing_strategy: manual # Options: unit, e2e, browser, unit+e2e, all, manual
+  create_docs: true # If false, bypasses docs agent spawning entirely
+  auto_approve_dev_to_qa: false # If true, auto-approves Gate 3
+  auto_approve_qa_to_docs: false # If true, auto-approves Gate 4
+  cleanup_on_done: false
 ```

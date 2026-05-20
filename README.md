@@ -44,32 +44,62 @@ npx skills add https://github.com/delphi-ai/animate-skill --skill animate
 ## Development Flow
 
 ```
-/idea-refine
-    Raw idea → problem statement + MVP scope + "not doing" list
-    ↓
-/spec-driven-development
-    Requirements → spec (6 areas) → tasks
-    Output flags: needs_design_phase? + design_complexity
-    ↓
-/design-pipeline  ← only if needs_design_phase: true
-    ├── /enhance-prompt       clarify visual intent
-    ├── /stitch-design        generate UI via Stitch MCP
-    ├── /taste-skill          inject premium design rules
-    ├── /design-md            extract design tokens → DESIGN.md
-    └── /react-components     convert to React components
-    ↓
-/context-engineering
-    Set up CLAUDE.md + load DESIGN.md as a persistent reference
-    ↓
-/api-and-interface-design       if API contracts need to be defined
-    ↓
-/incremental-implementation
-    Implement in vertical slices (~100 lines per commit)
-    ↓
-/frontend-ui-engineering
-    ├── integration + state + data flow + accessibility
-    ├── /animate-skill        motion layer (Emil's principles)
-    └── /output-skill         final gate, no placeholders
+                      +-------------------+
+                      |   /idea-refine    | (Optional: MVP scope)
+                      +-------------------+
+                                |
+                                v
+                      +-------------------+
+                      |       /spec       | (Defines tech stack & required_agents)
+                      +-------------------+
+                                |
+                   [GATE 1: User Approve spec.md]
+                                |
+                               +--+
+                               |
+                       Is design needed?
+                               |
+                   +-----------+-----------+
+                   | YES                   | NO
+                   v                       v
+         +-------------------+             |
+         | /design-pipeline  |             | (Skip if DESIGN.md exists)
+         +-------------------+             |
+                   |                       |
+      [GATE 2: User Approve Design]        |
+                   |                       |
+                   +-----------+-----------+
+                               |
+                               v
+                      +-------------------+
+                      |       /plan       | (Auto-runs: scaffolds teams/{name}/)
+                      +-------------------+
+                                |
+                                v
+                      +-------------------+
+                      |   /feature-team   | (Auto-runs: spawns dev agents)
+                      +-------------------+
+                                |
+                 [GATE 3: User Approve dev tasks] (Auto-approvable)
+                                |
+                                v
+                      +-------------------+
+                      |   /feature-team   | (Spawns QA agent, runs tests)
+                      |       [qa]        |
+                      +-------------------+
+                                |
+                 [GATE 4: User Approve QA tasks] (Auto-approvable)
+                                |
+                                v
+                      +-------------------+
+                      |   /feature-team   | (Spawns Docs agent, writes changelog)
+                      |      [docs]       |
+                      +-------------------+
+                                |
+                                v
+                      +-------------------+
+                      |   Auto-Cleanup    | (Deletes teams/{name}/ if configured)
+                      +-------------------+
 ```
 
 ### Trigger Phrases
