@@ -137,15 +137,11 @@ function TaskListSkeleton() {
 
 ## Authority Delegation
 
-Jika project menggunakan `/design-pipeline`, delegasikan ke skill yang tepat — jangan override:
-
-| Domain | Authority | Tindakan skill ini |
+| Domain | Authority | This skill's action |
 |---|---|---|
-| Visual taste & layout | `taste-skill` | Ikuti output taste-skill, jangan re-style |
-| Motion & animation | `animate-skill` | Jangan tambah animasi manual — serahkan ke animate-skill |
-| Component conversion | `stitch-skills/react-components` | Gunakan komponen yang sudah di-generate |
-| Integration, state, data flow, a11y | **skill ini** | Fokus di sini |
-| Final gate / anti-placeholder | `output-skill` | Dipanggil setelah implementasi selesai |
+| Visual taste & layout | `taste-skill` (external) | Follow taste-skill output if available, don't re-style |
+| Motion & animation | `animate-skill` (external) | Don't add manual animations if animate-skill is available |
+| Integration, state, data flow, a11y | **this skill** | Focus here |
 
 ---
 

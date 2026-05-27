@@ -16,7 +16,7 @@ git clone <repo-url> && cd agent
 ./install.sh
 
 # Or install a single skill
-cp -r skills/design-pipeline ~/.claude/skills/
+cp -r skills/grill-me ~/.claude/skills/
 ```
 
 After install, all skills are available in Claude Code via `/skill-name`.
@@ -26,12 +26,6 @@ After install, all skills are available in Claude Code via `/skill-name`.
 These skills require external dependencies (Stitch MCP, etc.):
 
 ```bash
-# Stitch skills — requires Stitch MCP: https://stitch.withgoogle.com/docs/mcp/setup
-npx skills add google-labs-code/stitch-skills --skill stitch-design --global
-npx skills add google-labs-code/stitch-skills --skill enhance-prompt --global
-npx skills add google-labs-code/stitch-skills --skill design-md --global
-npx skills add google-labs-code/stitch-skills --skill react-components --global
-
 # Taste skill
 npx skills add https://github.com/Leonxlnx/taste-skill
 
@@ -45,72 +39,43 @@ npx skills add https://github.com/delphi-ai/animate-skill --skill animate
 
 ```
                       +-------------------+
-                      |   /idea-refine    | (Optional: MVP scope)
+                      |    /grill-me      | (Grills idea → context.md + spec.md)
                       +-------------------+
+                                |
+                   [GATE: User Approve spec.md]
                                 |
                                 v
                       +-------------------+
-                      |       /spec       | (Defines tech stack & required_agents)
-                      +-------------------+
-                                |
-                   [GATE 1: User Approve spec.md]
-                                |
-                               +--+
-                               |
-                       Is design needed?
-                               |
-                   +-----------+-----------+
-                   | YES                   | NO
-                   v                       v
-         +-------------------+             |
-         | /design-pipeline  |             | (Skip if DESIGN.md exists)
-         +-------------------+             |
-                   |                       |
-      [GATE 2: User Approve Design]        |
-                   |                       |
-                   +-----------+-----------+
-                               |
-                               v
-                      +-------------------+
-                      |       /plan       | (Auto-runs: scaffolds teams/{name}/)
+                      |    /implement     | (Generates plan.md → topological wave dispatch)
                       +-------------------+
                                 |
                                 v
-                      +-------------------+
-                      |   /feature-team   | (Auto-runs: spawns dev agents)
-                      +-------------------+
-                                |
-                 [GATE 3: User Approve dev tasks] (Auto-approvable)
+                  [Wave N: spawn fe/be subagents in parallel]
                                 |
                                 v
-                      +-------------------+
-                      |   /feature-team   | (Spawns QA agent, runs tests)
-                      |       [qa]        |
-                      +-------------------+
+                  [verifier subagent: run test suite]
                                 |
-                 [GATE 4: User Approve QA tasks] (Auto-approvable)
+                       pass? -> next wave
+                       fail? -> halt + ask user
                                 |
                                 v
-                      +-------------------+
-                      |   /feature-team   | (Spawns Docs agent, writes changelog)
-                      |      [docs]       |
-                      +-------------------+
+                       [Wave Q: spawn qa subagent]
                                 |
                                 v
-                      +-------------------+
-                      |   Auto-Cleanup    | (Deletes teams/{name}/ if configured)
-                      +-------------------+
+                  [verifier subagent: full suite]
+                                |
+                                v
+                      [Wave D: spawn docs subagent]
+                                |
+                                v
+                  [Done — review diff, commit manually]
+                                |
+                                v
+                 /implement --cleanup (optional)
 ```
 
-### Trigger Phrases
-
-| Phrase | Behavior |
-|---|---|
-| `start project [name]` | Full flow, auto-detect design phase |
-| `start project [name] --with-design` | Force design phase |
-| `start project [name] --skip-design` | Skip design phase |
-| `redesign [feature]` | Jump directly to design-pipeline |
-| `polish [component]` | Run animate-skill + output-skill only |
+`--review` mode pauses after plan.md is written so you can inspect or edit it
+before execution. `--resume` continues from existing plan.md.
 
 ---
 
@@ -118,12 +83,10 @@ npx skills add https://github.com/delphi-ai/animate-skill --skill animate
 
 | Skill | Description |
 |---|---|
-| `idea-refine` | Structure a raw idea into an actionable concept |
-| `spec-driven-development` | Write specs before code — 4-phase gated workflow |
+| `grill-me` | Grill idea into `context.md` + `spec.md` (Mode C adds ADRs) |
+| `implement` | Generates `plan.md` from `spec.md`, dispatches `fe`/`be`/`qa`/`docs` subagents in topological waves with per-wave `verifier` |
 | `api-and-interface-design` | Design stable, hard-to-misuse APIs and interfaces |
-| `design-pipeline` | Router/orchestrator for the design phase (Stitch + taste + animate) |
 | `context-engineering` | Optimize agent context setup for consistent output quality |
-| `incremental-implementation` | Deliver changes in small, testable vertical slices |
 | `frontend-ui-engineering` | Build production-quality UIs, not AI-aesthetic ones |
 | `feature-composable-pattern` | Component data flow architecture (React / Vue) |
 | `test-driven-development` | RED → GREEN → REFACTOR cycle |
@@ -137,10 +100,8 @@ npx skills add https://github.com/delphi-ai/animate-skill --skill animate
 
 Skills in this repo are adapted and extended from:
 
-- **Core skills (10)** — [addyosmani/agent-skills](https://github.com/addyosmani/agent-skills/tree/main/skills)
-- **design-pipeline** — custom orchestrator built in this repo
+- **Core skills** — [addyosmani/agent-skills](https://github.com/addyosmani/agent-skills/tree/main/skills)
 - **External skills** (install separately):
-  - Stitch skills — [google-labs-code/stitch-skills](https://github.com/google-labs-code/stitch-skills)
   - Taste skill — [Leonxlnx/taste-skill](https://github.com/Leonxlnx/taste-skill)
   - Animate skill — [delphi-ai/animate-skill](https://github.com/delphi-ai/animate-skill)
   - Emil animation principles — [emilkowalski/skill](https://github.com/emilkowalski/skill)
