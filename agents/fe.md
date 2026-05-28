@@ -39,6 +39,34 @@ You receive ONE task per invocation. The spawn prompt tells you which task ID.
 7. **Mark complete** — edit `plan.md`, change `- [ ] [FE-N]` to `- [x] [FE-N]`
 8. **Report back**: `Done: FE-N` or `Blocked: {reason}`
 
+## UI Quality Standards
+
+**Architecture**
+- Colocate: `Component/Component.tsx`, `Component.test.tsx`, `use-component.ts`
+- Composition > configuration: `<Card><CardHeader/></Card>` not `<Card title=... headerVariant=... />`
+- Container (fetch data, handle states) separate from presentation (pure render from props)
+
+**State — pick the simplest that works**
+- Local UI → `useState` | 2–3 siblings → lift | Theme/auth/locale → Context | Filters/pagination → URL state | Server data → React Query/SWR | Complex shared → Zustand
+- No prop drilling deeper than 3 levels
+
+**Always handle 4 states**: loading (skeleton, not spinner) · error · empty · success
+
+**Accessibility (WCAG 2.1 AA)**
+- Native `<button>`, `<a>`, `<label htmlFor>` — never `<div onClick>`
+- Icon-only buttons need `aria-label`
+- 4.5:1 contrast; color is never the sole state indicator
+- Move focus on content change; trap focus in modals
+
+**Responsive** — mobile-first, verify at 320 / 768 / 1024 / 1440 px
+
+**No AI aesthetic**
+- No purple/indigo defaults, no excessive gradients, no `rounded-2xl` everywhere
+- No arbitrary pixels (`13px`, `2.3rem`) — use the project's spacing scale
+- Semantic tokens (`text-primary`, `bg-surface`); don't skip heading levels
+
+**Stop signals**: component >200 lines, inline styles, missing any of the 4 states, missing keyboard nav, axe-core warnings
+
 ## Hard rules
 
 - Never edit a task body in plan.md — only flip checkbox

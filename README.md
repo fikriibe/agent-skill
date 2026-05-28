@@ -83,12 +83,11 @@ before execution. `--resume` continues from existing plan.md.
 
 | Skill | Description |
 |---|---|
-| `grill-me-spec` | Grill idea into `context.md` + `spec.md` (Mode C adds ADRs). For casual grilling without files, use `anthropic-skills:grill-me` |
+| `grill-me-spec` | Grill idea into `context.md` + `spec.md` (Mode C adds ADRs). For casual grilling without files, use `grill-me` |
+| `grill-me` | Casual ideation grilling — no file output. Local mirror of `anthropic-skills:grill-me` for bundled distribution |
 | `implement` | Generates `plan.md` from `spec.md`, dispatches `fe`/`be`/`qa`/`docs` subagents in topological waves with per-wave `verifier` |
 | `api-and-interface-design` | Design stable, hard-to-misuse APIs and interfaces |
 | `context-engineering` | Optimize agent context setup for consistent output quality |
-| `frontend-ui-engineering` | Build production-quality UIs, not AI-aesthetic ones |
-| `feature-composable-pattern` | Component data flow architecture (React / Vue) |
 | `test-driven-development` | RED → GREEN → REFACTOR cycle |
 | `debugging-and-error-recovery` | Systematic root-cause debugging |
 | `code-simplification` | Refactor for clarity without changing behavior |

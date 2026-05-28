@@ -1,6 +1,6 @@
 ---
 name: grill-me-spec
-description: Development workflow skill — grills the user, explores codebase, then writes context.md + spec.md (+ ADRs in Mode C) to feed /implement. For casual ideation without file output, use anthropic-skills:grill-me instead. Trigger with /grill-me-spec, /grill-me-spec --mode=c, "spec out X", or "let's spec out X".
+description: Development workflow skill — grills the user, explores codebase, then writes context.md + spec.md (+ ADRs in Mode C) to feed /implement. For casual ideation without file output, use grill-me instead. Trigger with /grill-me-spec, /grill-me-spec --mode=c, "spec out X", or "let's spec out X".
 version: 1.1.0
 ---
 
@@ -8,7 +8,7 @@ version: 1.1.0
 
 Combines premise-challenging, divergent/convergent exploration, and relentless grilling into one skill. Outputs ready-to-consume docs for the `/implement` workflow.
 
-> For casual ideation or stress-testing a plan **without** producing files, use `anthropic-skills:grill-me` instead. This skill is specifically for the feature spec workflow.
+> For casual ideation or stress-testing a plan **without** producing files, use `grill-me` instead. This skill is specifically for the feature spec workflow.
 
 **Mode B (default):** `context.md` + `spec.md`
 **Mode C:** `context.md` + `spec.md` + ADR files
@@ -41,7 +41,7 @@ Defaults if section is missing:
 - adr_dir → `docs/adr/`
 - changelog_dir → `docs/changelogs/` (consumed by `/implement`)
 
-`/grill-me` only writes `context.md`, `spec.md`, and (in Mode C) ADR files. `plan.md` and changelogs are written later by `/implement`.
+`/grill-me-spec` only writes `context.md`, `spec.md`, and (in Mode C) ADR files. `plan.md` and changelogs are written later by `/implement`.
 
 ## Language
 
@@ -86,6 +86,8 @@ Rules:
 - If a branch has 2+ viable options with real tradeoffs, run idea-refine sub-mode: list options, stress-test each, ask user to pick
 - Cover all spec sections: objective, users, success criteria, tech constraints, scope boundaries, integration points, edge cases, "not doing"
 - Ground every question in codebase findings from Phase 2
+
+**Sub-skill triggers** — if scope touches interface design (new REST/GraphQL/RPC endpoint, module export consumed by another feature, or new type contract crossing module boundary), load skill `api-and-interface-design` before continuing, then drill its checklist: versioning, error contract, idempotency, breaking-change policy, and forward/backward compatibility. Answers go into spec.md (interface section) or an ADR in Mode C.
 
 **Stop conditions** (pick first that applies):
 - All sections resolved → proceed to Phase 5
