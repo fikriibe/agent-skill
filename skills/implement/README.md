@@ -1,6 +1,6 @@
 # implement
 
-Execution skill for after `/grill-me`. Replaces `/plan` + `/feature-team`.
+Execution skill for after `/grill-me-spec`. Replaces `/plan` + `/feature-team`.
 
 Reads `spec.md`, generates `plan.md`, then dispatches role subagents in topological waves. Each wave is automatically verified by the `verifier` subagent before the next wave runs.
 

@@ -16,7 +16,7 @@ git clone <repo-url> && cd agent
 ./install.sh
 
 # Or install a single skill
-cp -r skills/grill-me ~/.claude/skills/
+cp -r skills/grill-me-spec ~/.claude/skills/
 ```
 
 After install, all skills are available in Claude Code via `/skill-name`.
@@ -39,7 +39,7 @@ npx skills add https://github.com/delphi-ai/animate-skill --skill animate
 
 ```
                       +-------------------+
-                      |    /grill-me      | (Grills idea → context.md + spec.md)
+                      |  /grill-me-spec   | (Grills idea → context.md + spec.md)
                       +-------------------+
                                 |
                    [GATE: User Approve spec.md]
@@ -83,7 +83,7 @@ before execution. `--resume` continues from existing plan.md.
 
 | Skill | Description |
 |---|---|
-| `grill-me` | Grill idea into `context.md` + `spec.md` (Mode C adds ADRs) |
+| `grill-me-spec` | Grill idea into `context.md` + `spec.md` (Mode C adds ADRs). For casual grilling without files, use `anthropic-skills:grill-me` |
 | `implement` | Generates `plan.md` from `spec.md`, dispatches `fe`/`be`/`qa`/`docs` subagents in topological waves with per-wave `verifier` |
 | `api-and-interface-design` | Design stable, hard-to-misuse APIs and interfaces |
 | `context-engineering` | Optimize agent context setup for consistent output quality |
@@ -93,6 +93,7 @@ before execution. `--resume` continues from existing plan.md.
 | `debugging-and-error-recovery` | Systematic root-cause debugging |
 | `code-simplification` | Refactor for clarity without changing behavior |
 | `git-workflow-and-versioning` | Trunk-based development + atomic commits |
+| `glossary` | Scan codebase → generate `GLOSSARY.md` (Ubiquitous Language: canonical names, definitions, interface contracts) |
 
 ---
 

@@ -1,21 +1,23 @@
 ---
-name: grill-me
-description: Replaces /idea-refine + /spec flow. Grills the user with focused questions, explores codebase, then writes context.md + spec.md (+ ADRs in Mode C). Trigger with /grill-me, /grill-me --mode=c, "grill me on X", or "let's spec out X".
-version: 1.0.0
+name: grill-me-spec
+description: Development workflow skill — grills the user, explores codebase, then writes context.md + spec.md (+ ADRs in Mode C) to feed /implement. For casual ideation without file output, use anthropic-skills:grill-me instead. Trigger with /grill-me-spec, /grill-me-spec --mode=c, "spec out X", or "let's spec out X".
+version: 1.1.0
 ---
 
-# Grill Me
+# Grill Me Spec
 
-Combines premise-challenging, divergent/convergent exploration, and relentless grilling into one skill. Outputs ready-to-consume docs for downstream agents.
+Combines premise-challenging, divergent/convergent exploration, and relentless grilling into one skill. Outputs ready-to-consume docs for the `/implement` workflow.
+
+> For casual ideation or stress-testing a plan **without** producing files, use `anthropic-skills:grill-me` instead. This skill is specifically for the feature spec workflow.
 
 **Mode B (default):** `context.md` + `spec.md`
 **Mode C:** `context.md` + `spec.md` + ADR files
 
 ## Trigger
 
-- `/grill-me` — Mode B
-- `/grill-me --mode=c` — Mode C
-- Natural language: "grill me on X", "let's spec out X", "discover X"
+- `/grill-me-spec` — Mode B
+- `/grill-me-spec --mode=c` — Mode C
+- Natural language: "spec out X", "let's spec out X", "discover X"
 
 ## Path Configuration
 

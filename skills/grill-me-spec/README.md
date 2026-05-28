@@ -1,6 +1,8 @@
-# grill-me
+# grill-me-spec
 
 Digs into an idea with sharp, focused questions one at a time, explores the codebase, then writes `context.md` + `spec.md` ready for `/implement` to consume.
+
+> For casual ideation or stress-testing a plan **without** producing files, use `anthropic-skills:grill-me` instead.
 
 ---
 
@@ -8,10 +10,10 @@ Digs into an idea with sharp, focused questions one at a time, explores the code
 
 | Command | Output |
 |---|---|
-| `/grill-me` | `context.md` + `spec.md` |
-| `/grill-me --mode=c` | `context.md` + `spec.md` + ADR files |
+| `/grill-me-spec` | `context.md` + `spec.md` |
+| `/grill-me-spec --mode=c` | `context.md` + `spec.md` + ADR files |
 
-Natural language also works: *"grill me on X"*, *"let's spec out X"*.
+Natural language also works: *"spec out X"*, *"let's spec out X"*.
 
 ---
 

@@ -18,7 +18,7 @@ You write release-ready docs. Changelog entries and user-facing README updates o
 ## Out of scope
 
 - API reference docs (those should be auto-generated from code)
-- ADR / architecture docs (handled by `/grill-me --mode=c`)
+- ADR / architecture docs (handled by `/grill-me-spec --mode=c`)
 - Code comments (dev roles add those inline)
 - Marketing/blog copy
 
